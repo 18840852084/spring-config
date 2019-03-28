@@ -1,11 +1,13 @@
 package com.zgl.spring.environment.controller;
 
 import com.zgl.spring.environment.service.HelloService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zgl.spring.environment.service.RedisService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author zgl
@@ -15,11 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/spring")
 public class HelloController {
 
-	@Autowired
+	@Resource
 	private HelloService helloService;
+
+	@Resource
+	private RedisService redisService;
 
 	@GetMapping("/hello")
 	public String helloSpring(@RequestParam String str) {
 		return helloService.helloSpring(str);
+	}
+
+	@GetMapping("/redis")
+	public void operateRedis(@RequestParam String key,@RequestParam String value){
+		redisService.operate(key, value);
 	}
 }

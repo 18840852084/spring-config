@@ -33,7 +33,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:spring-aspect.xml
+			classpath*:spring-context.xml
 		</param-value>
 	</context-param>
 
