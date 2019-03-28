@@ -1,6 +1,7 @@
 package com.zgl.spring.environment.interceptor;
 
 
+import com.zgl.spring.environment.aop.Action;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -20,18 +21,17 @@ public class AccessLogHandler implements HandlerInterceptor {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
+	@Action
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		long currentTime = System.currentTimeMillis();
 		request.setAttribute("Current-Time", currentTime);
 		logger.error("{} {}", request.getMethod(), request.getRequestURI());
-		System.out.println(request.getMethod()+"========="+request.getRequestURI());
 		return true;
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
-		//log.info("postHandle...........");
 	}
 
 	@Override

@@ -31,10 +31,9 @@
 	<!-- 扫描包     -->
 	<context:component-scan base-package="com.zgl.spring.environment"/>
 
-	<!-- AOP自动注解功能 -->
-	<!--
+	<!-- AOP自动注解功能
+	 加在spring-mvc配置文件里才生效-->
 	<aop:aspectj-autoproxy/>
-	 -->
 
 	<!-- 消息转义定义     -->
 	<mvc:annotation-driven>

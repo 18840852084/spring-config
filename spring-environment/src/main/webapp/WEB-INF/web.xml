@@ -21,20 +21,25 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+	<filter>
+		<filter-name>myFilter</filter-name>
+		<filter-class>com.zgl.spring.environment.filter.MyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>myFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:/spring-context.xml
+			classpath*:spring-aspect.xml
 		</param-value>
 	</context-param>
 
-
-	<!-- log4j 系统日志-->
-
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
