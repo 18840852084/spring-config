@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/rabbit
+       http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
+
+	<context:property-placeholder location="classpath*:rabbit.properties" ignore-unresolvable="true"/>
+
+	<!-- MQ服务配置 -->
+	<rabbit:connection-factory id="connectionFactory" host="${spring.rabbitmq.host}"
+	                           username="${spring.rabbitmq.username}"
+	                           password="${spring.rabbitmq.password}" port="${spring.rabbitmq.port}"
+	                           virtual-host="${spring.rabbitmq.virtual-host}"
+	                           publisher-confirms="${spring.rabbitmq.publisher-confirms}"/>
+
+	<rabbit:admin connection-factory="connectionFactory" auto-startup="true"/>
+
+	<!-- queue 队列声明 -->
+	<rabbit:queue id="zgl_queue" durable="true" auto-delete="false" exclusive="false"
+	              name="${spring.rabbitmq.queueName}"/>
+	<rabbit:queue id="zyy_queue" durable="true" auto-delete="false" exclusive="false"
+	              name="${spring.rabbitmq.queue1Name}"/>
+
+	<!-- 消费者声明 -->
+	<bean id="zglConsumer" class="com.zgl.spring.environment.listener.rabbit.QueueZglConsumer"/>
+	<bean id="zyyConsumer" class="com.zgl.spring.environment.listener.rabbit.QueueZyyConsumer"/>
+
+	<!-- queue listener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 -->
+	<rabbit:listener-container connection-factory="connectionFactory" concurrency="${spring.rabbitmq.highConcurrency}"
+	                           prefetch="${spring.rabbitmq.listener.simple.prefetch}">
+		<rabbit:listener queues="${spring.rabbitmq.queueName}" ref="zglConsumer"/>
+	</rabbit:listener-container>
+	<rabbit:listener-container connection-factory="connectionFactory" concurrency="${spring.rabbitmq.lowConcurrency}"
+	                           prefetch="${spring.rabbitmq.listener.simple.prefetch}">
+		<rabbit:listener queues="${spring.rabbitmq.queue1Name}" ref="zyyConsumer"/>
+	</rabbit:listener-container>
+
+	<!-- exchange queue binging key 绑定 -->
+	<rabbit:direct-exchange name="${spring.rabbitmq.exchange}" durable="true" auto-delete="false"
+	                        id="${spring.rabbitmq.exchange}">
+		<rabbit:bindings>
+			<rabbit:binding queue="${spring.rabbitmq.queueName}" key="${spring.rabbitmq.queueKey}"/>
+			<rabbit:binding queue="${spring.rabbitmq.queue1Name}" key="${spring.rabbitmq.queue1Key}"/>
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<!--失败回调-->
+	<bean id="confirmCallback" class="com.zgl.spring.environment.listener.rabbit.callback.ConfirmCallBackListener"/>
+	<bean id="returnCallback" class="com.zgl.spring.environment.listener.rabbit.callback.ReturnCallBackListener"/>
+
+	<!-- 消息对象json转换类 -->
+	<bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter"/>
+
+	<!--rabbitmqTemplate设置-->
+	<rabbit:template id="rabbitTemplate" connection-factory="connectionFactory"
+	                 reply-timeout="${spring.rabbitmq.template.reply-timeout}" mandatory="true"
+	                 message-converter="jsonMessageConverter"
+	                 return-callback="returnCallback" confirm-callback="confirmCallback"/>
+</beans>

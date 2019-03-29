@@ -28,6 +28,7 @@
 		<mybatis.version>3.2.7</mybatis.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
 		<tk.mybatis.mapper.version>4.0.3</tk.mybatis.mapper.version>
+		<amqp.version>1.4.5.RELEASE</amqp.version>
 	</properties>
 
 	<dependencies>
@@ -189,6 +190,18 @@
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
 			<version>${pagehelper.version}</version>
+		</dependency>
+
+		<!--rabbitmq依赖 -->
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>${amqp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>3.5.3</version>
 		</dependency>
 	</dependencies>
 
