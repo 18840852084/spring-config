@@ -30,6 +30,15 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- 查看数据源 -->
+	<!--<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>-->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>

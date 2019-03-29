@@ -1,6 +1,8 @@
 package com.zgl.spring.environment.controller;
 
+import com.zgl.spring.environment.domain.User;
 import com.zgl.spring.environment.service.HelloService;
+import com.zgl.spring.environment.service.MysqlService;
 import com.zgl.spring.environment.service.RedisService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,9 @@ public class HelloController {
 	@Resource
 	private RedisService redisService;
 
+	@Resource
+	private MysqlService mysqlService;
+
 	@GetMapping("/hello")
 	public String helloSpring(@RequestParam String str) {
 		return helloService.helloSpring(str);
@@ -31,5 +36,10 @@ public class HelloController {
 	@GetMapping("/redis")
 	public void operateRedis(@RequestParam String key,@RequestParam String value){
 		redisService.operate(key, value);
+	}
+
+	@GetMapping("/mysql")
+	public User queryUser(@RequestParam String name){
+		return mysqlService.queryUserByName(name);
 	}
 }
