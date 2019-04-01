@@ -4,11 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zgl
  * @date 2019/3/29 下午4:24
  */
+@Component
 public class ConfirmCallBackListener implements RabbitTemplate.ConfirmCallback {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());

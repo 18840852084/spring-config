@@ -8,7 +8,7 @@
 	                              ignore-unresolvable="true" />
 
 	<import resource="spring-aspect.xml"/>
-	<import resource="spring-redis.xml"/>
+	<!--<import resource="spring-redis.xml"/>-->
 	<import resource="spring-mybatis.xml"/>
-	<import resource="spring-rabbit.xml"/>
+	<!--<import resource="spring-rabbit.xml"/>-->
 </beans>
