@@ -19,7 +19,7 @@
 		<lombok.version>1.18.4</lombok.version>
 		<fastjson.version>1.2.47</fastjson.version>
 		<aspect.version>1.6.11</aspect.version>
-		<jackson.version>2.9.4</jackson.version>
+		<jackson.version>2.9.8</jackson.version>
 		<log4j.version>2.4</log4j.version>
 		<druid.version>1.1.12</druid.version>
 		<jedis.version>2.7.1</jedis.version>
