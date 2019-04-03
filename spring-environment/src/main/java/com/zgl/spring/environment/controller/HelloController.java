@@ -4,10 +4,8 @@ import com.zgl.spring.environment.domain.User;
 import com.zgl.spring.environment.service.HelloService;
 import com.zgl.spring.environment.service.MysqlService;
 import com.zgl.spring.environment.service.RedisService;
+import com.zgl.spring.environment.util.LogUtil;
 import com.zgl.spring.environment.util.SpringContextUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +20,6 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/spring")
 public class HelloController {
-
-	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Resource
 	private HelloService helloService;
@@ -51,7 +47,7 @@ public class HelloController {
 
 	@GetMapping("/rabbit")
 	public String queryRabbitInfo(){
-		logger.info("connectionFactory信息:{}",SpringContextUtil.getBean("connectionFactory").toString());
+		LogUtil.logger.info("connectionFactory信息:{}",SpringContextUtil.getBean("connectionFactory").toString());
 		return "yeah!";
 	}
 }

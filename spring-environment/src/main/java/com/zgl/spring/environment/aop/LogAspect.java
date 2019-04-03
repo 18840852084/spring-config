@@ -1,5 +1,6 @@
 package com.zgl.spring.environment.aop;
 
+import com.zgl.spring.environment.util.LogUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
@@ -13,29 +14,27 @@ import java.util.List;
  * @date 2019/3/28 上午10:13
  */
 public class LogAspect {
-
-	private Logger logger = LoggerFactory.getLogger(getClass());
-
+	
 	public void beforeMethod(JoinPoint joinpoint) {
 		String methodName = joinpoint.getSignature().getName();
 		List<Object> args = Arrays.asList(joinpoint.getArgs());
-		logger.info("前置通知：The method {}, begins with:{},类名:{}",methodName,args,joinpoint.getClass().getName());
+		LogUtil.logger.info("前置通知：The method {}, begins with:{},类名:{}",methodName,args,joinpoint.getClass().getName());
 	}
 
 	public void afterMethod(JoinPoint joinpoint) {
 		String methodName = joinpoint.getSignature().getName();
 		List<Object>args = Arrays.asList(joinpoint.getArgs());
-		logger.info("后置通知：The method {}, ends",methodName);
+		LogUtil.logger.info("后置通知：The method {}, ends",methodName);
 	}
 
 	public void afterReturning(JoinPoint joinpoint, Object result) {
 		String methodName = joinpoint.getSignature().getName();
-		logger.info("返回通知：The method:{}, ends with{}",methodName,result);
+		LogUtil.logger.info("返回通知：The method:{}, ends with{}",methodName,result);
 	}
 
 	public void afterThrowing(JoinPoint joinpoint, Exception e) {
 		String methodName = joinpoint.getSignature().getName();
-		logger.info("异常通知：The method:{},occurs exception:{}",methodName,e);
+		LogUtil.logger.info("异常通知：The method:{},occurs exception:{}",methodName,e);
 	}
 
 	public Object aroundMethod(ProceedingJoinPoint point) {
@@ -50,7 +49,7 @@ public class LogAspect {
 			throw new RuntimeException(e);
 		}
 		//后置通知
-		logger.info("环绕通知");
+		LogUtil.logger.info("环绕通知");
 		return result;
 	}
 }

@@ -1,7 +1,6 @@
 package com.zgl.spring.environment.filter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zgl.spring.environment.util.LogUtil;
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -12,8 +11,6 @@ import java.io.IOException;
  */
 public class MyFilter implements Filter {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
-
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -21,7 +18,7 @@ public class MyFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-		logger.info("过滤器执行+++++++++++++++++++,{}",this.getClass().getName());
+		LogUtil.logger.info("过滤器执行+++++++++++++++++++,{}",this.getClass().getName());
 		filterChain.doFilter(servletRequest, servletResponse);
 	}
 

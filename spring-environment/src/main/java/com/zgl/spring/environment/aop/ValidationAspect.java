@@ -1,8 +1,7 @@
 package com.zgl.spring.environment.aop;
 
+import com.zgl.spring.environment.util.LogUtil;
 import org.aspectj.lang.JoinPoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
@@ -12,8 +11,7 @@ import java.util.Arrays;
  */
 public class ValidationAspect {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
 	public void validateArgs(JoinPoint joinPoint) {
-		logger.info("validate :{}",Arrays.asList(joinPoint.getArgs()));
+		LogUtil.logger.info("validate :{}",Arrays.asList(joinPoint.getArgs()));
 	}
 }
