@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2019/3/28 上午10:13
  */
 public class LogAspect {
-	
+
 	public void beforeMethod(JoinPoint joinpoint) {
 		String methodName = joinpoint.getSignature().getName();
 		List<Object> args = Arrays.asList(joinpoint.getArgs());
