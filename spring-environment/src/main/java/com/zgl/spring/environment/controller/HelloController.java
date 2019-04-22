@@ -50,4 +50,8 @@ public class HelloController {
 		LogUtil.logger.info("connectionFactory信息:{}",SpringContextUtil.getBean("connectionFactory").toString());
 		return "yeah!";
 	}
+	@GetMapping("/batch")
+	public void batchInsert(){
+		mysqlService.batchInsert();
+	}
 }

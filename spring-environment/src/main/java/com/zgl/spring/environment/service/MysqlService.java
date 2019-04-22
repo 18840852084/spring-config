@@ -8,4 +8,6 @@ import com.zgl.spring.environment.domain.User;
  */
 public interface MysqlService {
 	User queryUserByName(String name);
+
+	void batchInsert();
 }

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author zgl
  * @date 2019/3/28 下午6:14
  */
 @Service
-//@Transactional
 public class MysqlServiceImpl implements MysqlService {
 
 	@Resource
@@ -24,5 +24,17 @@ public class MysqlServiceImpl implements MysqlService {
 		User user = new User();
 		user.setName(name);
 		return userMapper.selectOne(user);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void batchInsert(){
+		User user1 = new User("123","zyy","111","sadad",24,new Date(),"female");
+		User user2 = new User("1234","zgl","111","sadad",25,new Date(),"male");
+		User user3 = new User("12345","zyy2","111","sadad",26,new Date(),"female");
+		userMapper.insert(user1);
+		userMapper.insert(user2);
+		//int num = 1/0;
+		userMapper.insert(user3);
 	}
 }

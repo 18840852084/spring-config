@@ -27,6 +27,19 @@ public class User {
 
 	private String sex;
 
+	public User() {
+	}
+
+	public User(String id, String userName, String password, String name, Integer age, Date birthday, String sex) {
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.name = name;
+		this.age = age;
+		this.birthday = birthday;
+		this.sex = sex;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
